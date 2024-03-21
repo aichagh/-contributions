@@ -1,32 +1,28 @@
-// imports for webserver
-const express = require("express");
-const { createServer } = require("node:http");
-
-// create a webserver
+// import the express package 
+const express = require('express');
 const app = express();
-// subfolder to serve web pages
-app.use(express.static("public"));
-const server = createServer(app);
 
-// start the webserver on port 3000
-server.listen(3000, () => {
-  console.log("webserver started: http://localhost:3000");
-});
+// start the server on port 3000
+const server = app.listen(3000, function() { 
+    console.log('http://localhost:3000') 
+})
 
-// setup socket server
-const { Server } = require("socket.io");
-// start socket server on webserver
-const io = new Server(server);
-console.log(`socket server at ${io.path()}`);
+// tell the server to use this subfolder to serve web pages
+app.use(express.static('public'));
 
-// listen for new connections
-io.on("connection", (socket) => {
-    // log the id of each new client
-    console.log(`👋 connect ${socket.id}`);
-  
-    // add listener for "mouse" data
-    socket.on("mouse", (data) => {
-      console.log(` ${socket.id} mouse`, data);
-    });
-});
-  
+// import the socket package too
+const socket = require('socket.io')
+
+// create the socket manager
+const io = socket(server)
+
+// handle event
+io.sockets.on('connection', function (socket) {
+    console.log(`connect ${socket.id}`)
+
+    socket.on('key', function(data) {
+        // send same packet to other clients
+        socket.broadcast.emit('key', data)
+        console.log(data)
+    })
+})
