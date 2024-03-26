@@ -20,9 +20,21 @@ const io = socket(server)
 io.sockets.on('connection', function (socket) {
     console.log(`connect ${socket.id}`)
 
-    socket.on('key', function(data) {
+    socket.on('tap', function(data) {
         // send same packet to other clients
-        socket.broadcast.emit('key', data)
-        console.log(data)
+        socket.broadcast.emit('tap', data)
+        console.log(`tap, ${data.x}, ${data.y}`)
+    })
+
+    socket.on('swipe', function(data) {
+        // send same packet to other clients
+        socket.broadcast.emit('swipe', data)
+        console.log(`swipe, ${data.x}, ${data.y}`)
+    })
+
+    socket.on('longTap', function(data) {
+        // send same packet to other clients
+        socket.broadcast.emit('longTap', data)
+        console.log(`longTap, ${data.x}, ${data.y}`)
     })
 })
