@@ -67,7 +67,6 @@ function mousePressed() {
 
 function mouseReleased() {
   if(millis() - startTime >= timer && mouseY >= height / 2 && mouseX >= width / 2) {
-    console.log("emitting long Tap")
     let data = {x: mouseX, y: mouseY}
     socket.emit('longTap', data);
 
@@ -96,6 +95,9 @@ function mouseReleased() {
     line(startPos.x, startPos.y, mouseX, mouseY);
 
     pop();
+    
+  } else {
+    inSwipe = false
   }
 }
 
