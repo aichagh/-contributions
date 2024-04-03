@@ -100,5 +100,3 @@ function mouseReleased() {
     inSwipe = false
   }
 }
-
-

@@ -15,11 +15,7 @@ const creature_stable_c = "#12b5b0"
 const creature_medium_c = "#5e3d1e"
 const creature_unstable_c = "#000000"
 
-
 let bg_color = stable_c;
-
-function preload() {
-}
 
 function setup() {
   // creating canvas and buffer
@@ -48,6 +44,7 @@ function draw() {
   image(pg_c, 0, 0, width, height);
   drawDrop();
   drawSparks();
+  drawSwirls();
   image(pg, 0, 0, width, height);
   pg.clear();
 
@@ -55,34 +52,20 @@ function draw() {
 }
 
 function handleTap(data) {
-  // temp; for debug
   state.a += 25;
-
-  let randX = round(Math.random() * width)
-  let temp = new Drop(randX, 0, false, Math.random() * 3 + 1)
-
+  let temp = new Drop();
   drops.push(temp)
 }
 
 function handleSwipe(data) {
-  // temp; for debug
   state.b += 50; 
-  push();
-  pg.noStroke();
-  pg.fill('rgba(0%, 39%, 0%, 5%)');
-  pg.rect(data.x, data.y, 50, 50);
-  pop();
+  let temp = new Swirl();
+  swirls.push(temp);
 }
 
 function handleLongTap(data) {
-  // temp; for debug
   state.c += 250;
-  
-  let tempX = round(Math.random() * width);
-  let tempY = round(Math.random() * height);
-
-  let temp = new Spark(tempX, tempY);
-
+  let temp = new Spark();
   sparks.push(temp)
 }
 
@@ -101,6 +84,12 @@ function drawDrop() {
 
 function drawSparks() {
   sparks.forEach(s => {
+    s.draw();
+  });
+}
+
+function drawSwirls() {
+  swirls.forEach(s => {
     s.draw();
   });
 }

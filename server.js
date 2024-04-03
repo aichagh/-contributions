@@ -8,7 +8,7 @@ const server = app.listen(3000, function() {
 })
 
 // tell the server to use this subfolder to serve web pages
-app.use(express.static('public'));
+app.use(express.static('public/client'));
 
 // import the socket package too
 const socket = require('socket.io')
@@ -21,19 +21,16 @@ io.sockets.on('connection', function (socket) {
     console.log(`connect ${socket.id}`)
 
     socket.on('tap', function(data) {
-        // send same packet to other clients
         socket.broadcast.emit('tap', data)
         console.log(`tap, ${data.x}, ${data.y}`)
     })
 
     socket.on('swipe', function(data) {
-        // send same packet to other clients
         socket.broadcast.emit('swipe', data)
         console.log(`swipe, ${data.x}, ${data.y}`)
     })
 
     socket.on('longTap', function(data) {
-        // send same packet to other clients
         socket.broadcast.emit('longTap', data)
         console.log(`longTap, ${data.x}, ${data.y}`)
     })

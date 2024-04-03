@@ -13,10 +13,8 @@ class Organic {
     push(); 
 	pg_c.noStroke();
 	pg_c.fill(this.color); 
-	// pg_c.translate(this.x, this.y);
-	// pg_c.rotate(this.angle + change);
 
-    // making the path of the creature
+  // making the path of the creature
 	pg_c.beginShape(); 
 	let n = 0;
 
@@ -25,7 +23,8 @@ class Organic {
         let r = this.r + offset;
         let x = r * Math.cos(i);
         let y = r * Math.sin(i);
-        pg_c.vertex(x + width / 2, y + height / 2);
+        pg_c.vertex(x + width / 2, y + height / 2); // the + width / 2 & + height / 2 centers the shape
+                                                    // translate for some reason didn't work like intended
         n += 0.1;
     }
 	pg_c.endShape();
