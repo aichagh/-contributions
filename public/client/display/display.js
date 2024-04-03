@@ -30,7 +30,7 @@ function setup() {
   socket.on('swipe', handleSwipe)
   socket.on('longTap', handleLongTap)
 
-  creature = new Organic(width / 4, width / 2, height / 2, stable, 20, creature_stable_c)
+  creature = new Creature(stable, 20, creature_stable_c)
 }
 
 // handle logic for "well-being" calculation in draw since refreshed
@@ -118,13 +118,13 @@ function updateState() {
   }
 
   if(state.a < 2000 && state.b < 2000 && state.c < 2000) {
-    creature = new Organic(width / 4, width / 2, height / 2, unstable, 20, creature_unstable_c);
+    creature = new Creature(unstable, 20, creature_unstable_c);
     bg_color = unstable_c;
   } else if(state.a < 4000 && state.b < 4000 && state.c < 4000) {
-    creature = new Organic(width / 4, width / 2, height / 2, medium, 20, creature_medium_c);
+    creature = new Creature(medium, 20, creature_medium_c);
     bg_color = medium_c;
   } else {
-    creature = new Organic(width / 4, width / 2, height / 2, stable, 20, creature_stable_c);
+    creature = new Creature(stable, 20, creature_stable_c);
     bg_color = stable_c;
   }
 }
