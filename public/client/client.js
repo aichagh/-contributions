@@ -91,7 +91,7 @@ function mouseReleased() {
 
     noFill();
     strokeWeight(5);
-    stroke('#91fff6')
+    stroke('#f294f1')
     line(startPos.x, startPos.y, mouseX, mouseY);
 
     pop();

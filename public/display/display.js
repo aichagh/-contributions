@@ -7,10 +7,18 @@ const stable = 50;
 const medium = 150;
 const unstable = 300;
 
-let distortion = stable;
+const stable_c = "#96ffe0"
+const medium_c = "#b5832b";
+const unstable_c = "#660b03";
+
+const creature_stable_c = "#12b5b0"
+const creature_medium_c = "#5e3d1e"
+const creature_unstable_c = "#000000"
+
+
+let bg_color = stable_c;
 
 function preload() {
-  bg = loadImage("bg2.png")
 }
 
 function setup() {
@@ -26,12 +34,12 @@ function setup() {
   socket.on('swipe', handleSwipe)
   socket.on('longTap', handleLongTap)
 
-  creature = new Organic(width / 4, width / 2, height / 2, stable, 20, 0)
+  creature = new Organic(width / 4, width / 2, height / 2, stable, 20, creature_stable_c)
 }
 
 // handle logic for "well-being" calculation in draw since refreshed
 function draw() {
-  pg_c.background(255);
+  pg_c.background(bg_color);
   pg_c.fill(0);
   // pg_c.circle(width / 2, height / 2, 150);
   creature.draw(c);
@@ -48,7 +56,7 @@ function draw() {
 
 function handleTap(data) {
   // temp; for debug
-  state.a += 50;
+  state.a += 25;
 
   let randX = round(Math.random() * width)
   let temp = new Drop(randX, 0, false, Math.random() * 3 + 1)
@@ -58,17 +66,17 @@ function handleTap(data) {
 
 function handleSwipe(data) {
   // temp; for debug
-  state.b += 250; 
+  state.b += 50; 
   push();
   pg.noStroke();
-  pg.fill("#91fff6");
+  pg.fill('rgba(0%, 39%, 0%, 5%)');
   pg.rect(data.x, data.y, 50, 50);
   pop();
 }
 
 function handleLongTap(data) {
   // temp; for debug
-  state.c += 500;
+  state.c += 250;
   
   let tempX = round(Math.random() * width);
   let tempY = round(Math.random() * height);
@@ -121,13 +129,13 @@ function updateState() {
   }
 
   if(state.a < 2000 && state.b < 2000 && state.c < 2000) {
-    print("unstable")
-    creature = new Organic(width / 4, width / 2, height / 2, unstable, 20, 0)
+    creature = new Organic(width / 4, width / 2, height / 2, unstable, 20, creature_unstable_c);
+    bg_color = unstable_c;
   } else if(state.a < 4000 && state.b < 4000 && state.c < 4000) {
-    print("medium")
-    creature = new Organic(width / 4, width / 2, height / 2, medium, 20, 0)
+    creature = new Organic(width / 4, width / 2, height / 2, medium, 20, creature_medium_c);
+    bg_color = medium_c;
   } else {
-    print("stable")
-    creature = new Organic(width / 4, width / 2, height / 2, stable, 20, 0)
+    creature = new Organic(width / 4, width / 2, height / 2, stable, 20, creature_stable_c);
+    bg_color = stable_c;
   }
 }
