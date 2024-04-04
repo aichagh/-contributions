@@ -52,19 +52,19 @@ function draw() {
 }
 
 function handleTap(data) {
-  state.a += 25;
+  state.a += 10;
   let temp = new Drop();
   drops.push(temp)
 }
 
 function handleSwipe(data) {
-  state.b += 50; 
+  state.b += 25; 
   let temp = new Swirl();
   swirls.push(temp);
 }
 
 function handleLongTap(data) {
-  state.c += 250;
+  state.c += 50;
   let temp = new Spark();
   sparks.push(temp)
 }

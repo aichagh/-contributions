@@ -1,6 +1,9 @@
 // import the express package 
 const express = require('express');
 const app = express();
+// const cors = require('cors');
+
+// app.use(cors());
 
 // start the server on port 3000
 const server = app.listen(3000, function() { 
@@ -33,10 +36,5 @@ io.sockets.on('connection', function (socket) {
     socket.on('longTap', function(data) {
         socket.broadcast.emit('longTap', data)
         console.log(`longTap, ${data.x}, ${data.y}`)
-    })
-
-    socket.on('display', function() {
-        console.log("key pressed")
-        window.location.href = 'public/client/display'; 
     })
 })
