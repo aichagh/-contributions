@@ -34,4 +34,9 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('longTap', data)
         console.log(`longTap, ${data.x}, ${data.y}`)
     })
+
+    socket.on('display', function() {
+        console.log("key pressed")
+        window.location.href = 'public/client/display'; 
+    })
 })
